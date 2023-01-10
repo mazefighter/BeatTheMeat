@@ -16,14 +16,16 @@ public class ShootStartPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distancePlayerMouse = new Vector3(mousePos.transform.position.x - transform.position.x,mousePos.transform.position.y - transform.position.y,0);
+        distancePlayerMouse = new Vector3(mousePos.transform.position.x - Player.transform.position.x,mousePos.transform.position.y - Player.transform.position.y,0);
         if (distancePlayerMouse.x < 0)
         {
-            transform.position = new Vector2(-Xpos , Ypos);
+            transform.position = new Vector2(Player.transform.position.x - Xpos , Player.transform.position.y +Ypos);
+            Player.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
         if (distancePlayerMouse.x > 0)
         {
-            transform.position = new Vector2(Xpos , Ypos);
+            transform.position = new Vector2(Player.transform.position.x + Xpos , Player.transform.position.y +Ypos);
+            Player.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
         
     }
