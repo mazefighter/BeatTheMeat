@@ -6,7 +6,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer = 0;
-    private int collisioncount;
     void Start()
     {
         
@@ -22,14 +21,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collisioncount == 1)
+        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
-
-        collisioncount++;
-
+        
     }
 }
