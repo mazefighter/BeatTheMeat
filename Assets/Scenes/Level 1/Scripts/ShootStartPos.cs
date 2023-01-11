@@ -19,11 +19,19 @@ public class ShootStartPos : MonoBehaviour
         distancePlayerMouse = new Vector3(mousePos.transform.position.x - Player.transform.position.x,mousePos.transform.position.y - Player.transform.position.y,0);
         if (distancePlayerMouse.x < 0)
         {
+            if (Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.D))
+            {
+                transform.position = new Vector2(Player.transform.position.x - Xpos - 0.3f , Player.transform.position.y +Ypos);
+            }
             transform.position = new Vector2(Player.transform.position.x - Xpos , Player.transform.position.y +Ypos);
             Player.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
         if (distancePlayerMouse.x > 0)
         {
+            if (Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.D))
+            {
+                transform.position = new Vector2(Player.transform.position.x - Xpos + 0.3f , Player.transform.position.y +Ypos);
+            }
             transform.position = new Vector2(Player.transform.position.x + Xpos , Player.transform.position.y +Ypos);
             Player.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
