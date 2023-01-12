@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer = 0;
+    [SerializeField] public float damage;
     void Start()
     {
         
@@ -23,10 +24,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player"))
+        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player")&&!other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject); 
         }
-        
     }
 }

@@ -21,11 +21,11 @@ public class Shoot : MonoBehaviour
         {
             timer += Time.deltaTime;
             Vector2 ShootLine = new Vector2(VectorEnd.transform.position.x - VectorStart.transform.position.x, VectorEnd.transform.position.y - VectorStart.transform.position.y);
-            if (timer >= 0.4f)
+            if (timer >= 0.3f)
             {
                 GameObject _Bullet = Instantiate(Bullet, VectorStart.transform.position, Quaternion.identity);
                 Rigidbody2D bulletbody = _Bullet.GetComponent<Rigidbody2D>();
-                bulletbody.velocity = ShootLine.normalized * 10;
+                bulletbody.velocity = ShootLine.normalized * 20;
                 timer = 0;
             } 
         }
