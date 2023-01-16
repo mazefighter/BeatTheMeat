@@ -5,42 +5,38 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] private TargetDummie _target;
+    private TargetDummie _target;
     public float timer;
     private int _type;
-    private GameObject _game;
     private bool respawn = false;
-
-    private void OnEnable()
-    {
-        _target._Respawn += TargetOn_Respawn;
-    }
-
-    private void OnDisable()
-    {
-        _target._Respawn -= TargetOn_Respawn;
-    }
-
-    private void TargetOn_Respawn(int type,GameObject gameObject)
-    {
-        _game = gameObject;
-        _type = type;
-        respawn = true;
-        
-        _target.currenthealth = _target.maxhealth;
-    }
+    private BoxCollider2D _collider;
+    private SpriteRenderer _renderer;
+    public bool reactivate;
 
     void Start()
     {
-        
+        _collider = GetComponentInParent<BoxCollider2D>();
+        _renderer = GetComponentInParent<SpriteRenderer>();
+        _target = GetComponentInParent<TargetDummie>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (respawn && timer >= _type)
+
+        if (_target._doRespawn)
         {
-            _game.SetActive(true);
+            timer = 0;
+            respawn = true;
+            _target.currenthealth = _target.maxhealth;
+            _target._doRespawn = false;
+            
+        }
+        if (respawn && timer >= _target._EnemyType)
+        {
+            reactivate = true;
+            respawn = false;
+            timer = 0;
         }
         timer += Time.deltaTime;
         

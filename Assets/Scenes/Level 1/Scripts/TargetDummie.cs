@@ -11,23 +11,19 @@ public class TargetDummie : MonoBehaviour
     public float maxhealth;
     public float currenthealth;
     private Slider _slide;
-    private float timer;
-    private Thread _thread;
-    [SerializeField] private Respawn _spawn;
-
-    public delegate void EnemyType(int type, GameObject gameObject);
-
-    public event EnemyType _Respawn;
-    private void OnEnable()
-    {
-        _slide = GetComponentInChildren<Slider>();
-        currenthealth = maxhealth;
-    }
-    
-
+    private Respawn _spawn;
+    public int _EnemyType;
+    public bool _doRespawn = false;
+    public bool _startTimer;
+    private BoxCollider2D _collider;
+    private SpriteRenderer _renderer;
     void Start()
     {
-        
+        _collider = GetComponent<BoxCollider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
+        _spawn = GetComponentInChildren<Respawn>();
+        _slide = GetComponentInChildren<Slider>();
+        currenthealth = maxhealth;
     }
     void Update()
     {
@@ -37,11 +33,20 @@ public class TargetDummie : MonoBehaviour
 
         if (currenthealth <= 0)
         {
+            _doRespawn = true;
             _spawn.timer = 0;
-            _Respawn?.Invoke(2,gameObject);
-            gameObject.SetActive(false);
+            _renderer.enabled = !_renderer.enabled;
+            _collider.enabled = !_collider.enabled;
+            _slide.gameObject.SetActive(false);
         }
-        
+
+        if (_spawn.reactivate)
+        {
+            _renderer.enabled = true;
+            _collider.enabled = true;
+            _slide.gameObject.SetActive(true);
+            _spawn.reactivate = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
