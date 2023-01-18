@@ -15,6 +15,11 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.P))
+        {
+            damage = 6;
+        }
+
         timer += Time.deltaTime;
         if (timer > 3)
         {
@@ -24,7 +29,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player")&&!other.gameObject.CompareTag("Enemy"))
+        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject); 
         }

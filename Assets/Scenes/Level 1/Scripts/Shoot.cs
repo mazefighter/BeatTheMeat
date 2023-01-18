@@ -24,6 +24,11 @@ public class Shoot : MonoBehaviour
             if (timer >= 0.3f)
             {
                 GameObject _Bullet = Instantiate(Bullet, VectorStart.transform.position, Quaternion.identity);
+                if (Input.GetKey(KeyCode.P))
+                {
+                    _Bullet.transform.localScale = new Vector3(6, 6, 1);
+                }
+                
                 Rigidbody2D bulletbody = _Bullet.GetComponent<Rigidbody2D>();
                 bulletbody.velocity = ShootLine.normalized * 20;
                 timer = 0;

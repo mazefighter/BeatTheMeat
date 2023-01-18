@@ -14,8 +14,9 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         timer += Time.deltaTime;
-        if (timer > 3)
+        if (timer > 1)
         {
             Instantiate(Burger, transform.position, Quaternion.identity);
             timer = 0;

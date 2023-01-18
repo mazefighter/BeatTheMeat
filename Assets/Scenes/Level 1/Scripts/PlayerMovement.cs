@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ladder"))
         {
+            _rigidbody2D.velocity = Vector2.zero;
             OnLadder = true;
         }
     }
