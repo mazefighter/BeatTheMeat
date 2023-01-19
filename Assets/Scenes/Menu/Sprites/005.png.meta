@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: 13f05c27b6e5ded49b514a86efbad806
+guid: 3eb8a08adadd08344893d4fdedcc77cc
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -5856247099685818500
-    second: Gegnerischer_hamburger_base_art_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -49,8 +46,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 250
-  spriteBorder: {x: 21, y: 11, z: 30, w: 13}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -92,28 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Gegnerischer_hamburger_base_art_0
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 11
-        width: 156
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7fa0526a4e6abea0800000000000000
-      internalID: -5856247099685818500
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

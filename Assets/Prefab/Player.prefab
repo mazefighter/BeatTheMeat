@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8597873402636170086}
   - component: {fileID: 8597873402636170093}
   - component: {fileID: 8597873402636170089}
+  - component: {fileID: 8312781227878425347}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -123,6 +124,8 @@ MonoBehaviour:
   OnLadder: 0
   groundcheck: 0
   _shoot: {fileID: 0}
+  _levelUp: {fileID: 0}
+  lvl: {fileID: 4895835847057181033, guid: 15079496aa34eba4680d09670f6562b9, type: 3}
 --- !u!95 &8597873402636170093
 Animator:
   serializedVersion: 3
@@ -159,7 +162,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.1605275, y: 2.1599998}
+    oldSize: {x: 2.150525, y: 2.15}
     newSize: {x: 10.802638, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -168,3 +171,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9615113, y: 2.1390305}
   m_EdgeRadius: 0
+--- !u!114 &8312781227878425347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597873402636170087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2722394f1ac288b47b45afae720d6a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxhealth: 20
+  currenthealth: 0

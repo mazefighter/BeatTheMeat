@@ -9,7 +9,7 @@ public class XpBar : MonoBehaviour
     private Slider _slider;
     [SerializeField]private float XPValue;
     private float currXp;
-    private event Action levelUp;
+    public event Action levelUp;
     void Start()
     {
         

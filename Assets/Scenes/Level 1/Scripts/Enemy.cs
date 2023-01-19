@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private Slider _slide;
     [SerializeField]private int XpAmount;
     private Animator _animator;
+    private float timer;
 
     public delegate void EnemyXP(int XP);
     public static event EnemyXP killed;
@@ -39,12 +41,15 @@ public class Enemy : MonoBehaviour
         _slide = GetComponentInChildren<Slider>();
         player = GameObject.FindWithTag("Player");
         currenthealth = maxhealth;
-        Physics.IgnoreLayerCollision(6,7);
+        Physics.IgnoreLayerCollision(6,6,false);
+        Physics.IgnoreLayerCollision(6,7,false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        int i = Random.Range(0, 11);
+        timer += Time.deltaTime;
         float slidevalue;
         slidevalue = (1 / maxhealth) * currenthealth;
         _slide.value = slidevalue;
@@ -56,8 +61,22 @@ public class Enemy : MonoBehaviour
         }
         if (groundcheck)
         {
-            _rigidbody2D.velocity = Vector2.zero;
-            _rigidbody2D.velocity = new Vector2(player.transform.position.x - transform.position.x,transform.position.y).normalized *3;
+            if (timer >= 0.5f)
+            {
+                if (i <= 5)
+                {
+                    _rigidbody2D.velocity = Vector2.right *3;
+                }
+
+                if (i >= 5 )
+                {
+                    _rigidbody2D.velocity = Vector2.left *3;
+                }
+
+                timer = 0;
+                //_rigidbody2D.velocity = new Vector2(player.transform.position.x - transform.position.x,transform.position.y).normalized *3;
+            }
+            
         }
         else
         {
@@ -73,6 +92,15 @@ public class Enemy : MonoBehaviour
         {
             groundcheck = true;
         }
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy"))
+        {
+            groundcheck = true;
+        }
+        
     }
 
     private void OnCollisionExit2D(Collision2D other)

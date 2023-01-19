@@ -16,6 +16,23 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int Climbing = Animator.StringToHash("Climbing");
     private static readonly int Walking = Animator.StringToHash("Walking");
     private static readonly int Hanging = Animator.StringToHash("Hanging");
+    [SerializeField] XpBar _levelUp;
+    [SerializeField] private GameObject lvl;
+
+    private void OnEnable()
+    {
+        _levelUp.levelUp += LevelUpOnlevelUp;
+    }
+
+    private void OnDisable()
+    {
+        _levelUp.levelUp -= LevelUpOnlevelUp;
+    }
+
+    private void LevelUpOnlevelUp()
+    {
+        Instantiate(lvl,transform.position, Quaternion.identity);
+    }
 
     void Start()
     {

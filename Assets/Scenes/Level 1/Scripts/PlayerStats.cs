@@ -22,6 +22,16 @@ public class PlayerStats : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+       
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         timer = 0;
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -29,7 +39,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy")&&timer>0.5)
         {
