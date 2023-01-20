@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]private int XpAmount;
     private Animator _animator;
     private float timer;
+     //private CameraShake _shake;
 
     public delegate void EnemyXP(int XP);
     public static event EnemyXP killed;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
     {
         _slide = GetComponentInChildren<Slider>();
         player = GameObject.FindWithTag("Player");
+        //_shake = GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>();
         currenthealth = maxhealth;
         Physics.IgnoreLayerCollision(6,6,false);
         Physics.IgnoreLayerCollision(6,7,false);
@@ -116,6 +118,7 @@ public class Enemy : MonoBehaviour
         _bullet = other.GetComponent<Bullet>();
         if (other.gameObject.CompareTag("Bullet"))
         {
+           // _shake.shake = 1f;
             currenthealth -= _bullet.damage;
         }
         
