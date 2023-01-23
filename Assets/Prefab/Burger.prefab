@@ -181,6 +181,7 @@ MonoBehaviour:
   maxhealth: 10
   currenthealth: 0
   XpAmount: 5
+  enemySpeed: 3
 --- !u!50 &3147540938124177704
 Rigidbody2D:
   serializedVersion: 4

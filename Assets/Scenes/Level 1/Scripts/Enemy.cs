@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -18,8 +19,11 @@ public class Enemy : MonoBehaviour
     private Slider _slide;
     [SerializeField]private int XpAmount;
     private Animator _animator;
+    private PlayerStats _stats;
     private float timer;
-     //private CameraShake _shake;
+
+    public float enemySpeed ;
+    //private CameraShake _shake;
 
     public delegate void EnemyXP(int XP);
     public static event EnemyXP killed;
@@ -41,10 +45,22 @@ public class Enemy : MonoBehaviour
     {
         _slide = GetComponentInChildren<Slider>();
         player = GameObject.FindWithTag("Player");
+        _stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        _stats.Stop += StatsOnStop;
         //_shake = GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>();
         currenthealth = maxhealth;
         Physics.IgnoreLayerCollision(6,6,false);
         Physics.IgnoreLayerCollision(6,7,false);
+    }
+
+    private void OnDisable()
+    {
+        _stats.Stop -= StatsOnStop;
+    }
+
+    private void StatsOnStop()
+    {
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -63,22 +79,8 @@ public class Enemy : MonoBehaviour
         }
         if (groundcheck)
         {
-            if (timer >= 0.5f)
-            {
-                if (i <= 5)
-                {
-                    _rigidbody2D.velocity = Vector2.right *3;
-                }
+            Seek(player.transform.position);
 
-                if (i >= 5 )
-                {
-                    _rigidbody2D.velocity = Vector2.left *3;
-                }
-
-                timer = 0;
-                //_rigidbody2D.velocity = new Vector2(player.transform.position.x - transform.position.x,transform.position.y).normalized *3;
-            }
-            
         }
         else
         {
@@ -86,6 +88,11 @@ public class Enemy : MonoBehaviour
             _rigidbody2D.velocity = Vector2.down*5;
         }
         
+    }
+
+    private void Seek(Vector3 destination)
+    {
+        _rigidbody2D.velocity = new Vector2(destination.x - transform.position.x,destination.y - transform.position.y).normalized * enemySpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
