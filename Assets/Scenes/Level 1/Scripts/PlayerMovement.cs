@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D.velocity = Vector2.zero;
         pause = true;
+        _rigidbody2D.velocity = new Vector2(0,Vector2.down.y * movespeed);
         anim.SetBool(Hanging, false);
         anim.SetBool(Climbing, false);
         anim.SetBool("Walking",false);
@@ -127,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground")|| !OnLadder)
+        if (other.gameObject.CompareTag("Ground")&& !OnLadder)
         {
             groundcheck = true;
             timer = 0.5f;
@@ -140,6 +141,5 @@ public class PlayerMovement : MonoBehaviour
         {
             groundcheck = false; 
         }
-        _rigidbody2D.velocity = Vector2.zero;
     }
 }

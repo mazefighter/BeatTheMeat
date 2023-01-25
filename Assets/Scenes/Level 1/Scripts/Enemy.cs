@@ -92,7 +92,7 @@ public class Enemy : MonoBehaviour
 
     private void Seek(Vector3 destination)
     {
-        _rigidbody2D.velocity = new Vector2(destination.x - transform.position.x,destination.y - transform.position.y).normalized * enemySpeed;
+        _rigidbody2D.velocity = new Vector2(destination.x - transform.position.x,0).normalized * enemySpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
