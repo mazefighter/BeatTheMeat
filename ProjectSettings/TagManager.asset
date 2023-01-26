@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - Bullet
   - Wall
+  - CageSpawner
+  - SpawnArea
+  - Under
   layers:
   - Default
   - TransparentFX

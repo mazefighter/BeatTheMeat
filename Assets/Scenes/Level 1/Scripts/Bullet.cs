@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player"))
+        if (!other.gameObject.CompareTag("Ladder")&& !other.gameObject.CompareTag("Player")&&!other.gameObject.CompareTag("SpawnArea")&&!other.gameObject.CompareTag("Untagged"))
         {
             Destroy(gameObject); 
         }

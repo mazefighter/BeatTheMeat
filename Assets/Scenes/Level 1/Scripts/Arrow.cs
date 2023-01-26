@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField]private Vector3 targetpos;
+    public Vector3 targetpos;
     [SerializeField]private Transform originpos;
     void Start()
     {

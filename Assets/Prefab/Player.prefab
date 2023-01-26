@@ -126,6 +126,7 @@ MonoBehaviour:
   _shoot: {fileID: 0}
   _levelUp: {fileID: 0}
   lvl: {fileID: 4895835847057181033, guid: 15079496aa34eba4680d09670f6562b9, type: 3}
+  _stats: {fileID: 0}
 --- !u!95 &8597873402636170093
 Animator:
   serializedVersion: 3
@@ -185,3 +186,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 20
   currenthealth: 0
+  _shoot: {fileID: 0}

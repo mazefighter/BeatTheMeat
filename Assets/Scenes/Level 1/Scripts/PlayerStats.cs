@@ -12,7 +12,24 @@ public class PlayerStats : MonoBehaviour
     private Animator _animator;
     private float deathTimer;
     [SerializeField] private Shoot _shoot;
+    private bool timelose;
     public event Action Stop;
+
+    private void OnEnable()
+    {
+        Timer.TimeLose += TimerOnTimeLose;
+    }
+
+    private void OnDisable()
+    {
+        Timer.TimeLose -= TimerOnTimeLose;
+    }
+
+    private void TimerOnTimeLose()
+    {
+        timelose = true;
+    }
+
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -23,7 +40,7 @@ public class PlayerStats : MonoBehaviour
     {
         timer += Time.deltaTime;
         
-        if (currenthealth <= 0)
+        if (currenthealth <= 0|| timelose)
         {
             _animator.SetBool("Death",true);
             _shoot.shoot = false;

@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private PlayerStats _stats;
     private float timer;
+    public bool moveRight;
 
     public float enemySpeed ;
     //private CameraShake _shake;
@@ -66,6 +67,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.x - player.transform.position.x <= 0.1 &&
+            transform.position.x - player.transform.position.x >= -0.1)
+        {
+            moveRight = true;
+        }
         int i = Random.Range(0, 11);
         timer += Time.deltaTime;
         float slidevalue;
@@ -86,13 +92,22 @@ public class Enemy : MonoBehaviour
         {
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.velocity = Vector2.down*5;
+            moveRight = false;
         }
         
     }
 
     private void Seek(Vector3 destination)
     {
-        _rigidbody2D.velocity = new Vector2(destination.x - transform.position.x,0).normalized * enemySpeed;
+        if (moveRight)
+        {
+            _rigidbody2D.velocity = Vector2.right.normalized * enemySpeed;
+        }
+        else
+        {
+            _rigidbody2D.velocity = new Vector2(destination.x - transform.position.x, 0).normalized*enemySpeed;
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -101,6 +116,7 @@ public class Enemy : MonoBehaviour
         {
             groundcheck = true;
         }
+        
     }
 
     private void OnCollisionStay(Collision other)
@@ -128,7 +144,6 @@ public class Enemy : MonoBehaviour
            // _shake.shake = 1f;
             currenthealth -= _bullet.damage;
         }
-        
     }
     
 }

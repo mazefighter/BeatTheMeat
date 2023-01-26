@@ -39,7 +39,7 @@ public class EnemySpawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Ground")&& !spawned)
+        if (other.gameObject.CompareTag("SpawnArea")&& !spawned)
         {
             Instantiate(Burger, transform.position, Quaternion.identity);
             spawned = true;
