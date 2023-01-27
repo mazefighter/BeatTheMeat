@@ -40,8 +40,17 @@ public class Timer : MonoBehaviour
         }
         if (timer <= 0&& Minute >= 1)
         {
-            timer = 49;
+            timer = 59;
             Minute--;
+        }
+
+        if (timer >= 60)
+        {
+            float temptimer = timer;
+            temptimer -= 60;
+            timer = 0;
+            timer += temptimer;
+            Minute++;
         }
 
         if (Minute == 0 && timer <= 0)

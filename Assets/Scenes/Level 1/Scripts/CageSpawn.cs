@@ -24,7 +24,7 @@ public class CageSpawn : MonoBehaviour
             Transform newcagepos = cagepositions[Random.Range(0, cagepositions.Length)];
             GameObject newcageobj = Cages[Random.Range(0, Cages.Count)];
             Instantiate(newcageobj, newcagepos.position, Quaternion.identity);
-            _timer.timer += 10;
+            _timer.timer += 30;
             _arrow.targetpos = newcagepos.position;
             spawncage = false;
         }

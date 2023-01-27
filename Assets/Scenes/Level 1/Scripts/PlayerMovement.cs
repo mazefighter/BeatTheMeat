@@ -20,11 +20,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject lvl;
     private bool pause = false;
     [SerializeField] private PlayerStats _stats;
+    [SerializeField] private Transform groundchecktrans;
+    [SerializeField] private LayerMask groudlayer;
+    private BoxCollider2D coll;
+    private bool isGrounded;
 
     private void OnEnable()
     {
         _levelUp.levelUp += LevelUpOnlevelUp;
         _stats.Stop += StatsOnStop;
+    }
+
+    private void Awake()
+    {
+        coll = GetComponent<BoxCollider2D>();
     }
 
     private void StatsOnStop()
@@ -54,10 +63,20 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         _collider = GetComponent<PolygonCollider2D>();
     }
+    
+    private void GroundCheck()
+    {
+        Bounds bounds = coll.bounds;
+        Vector2 size = new Vector2(bounds.extents.x + bounds.extents.x / 2, 0.05f);
+        Vector2 origin = new Vector2(bounds.center.x, bounds.center.y - bounds.extents.y);
+        isGrounded = Physics2D.OverlapCapsule(origin, size, CapsuleDirection2D.Horizontal, 0f, groudlayer);
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        GroundCheck();
         float inputX = Input.GetAxis("Horizontal");
         if (!pause)
         {
@@ -87,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
                     anim.SetBool(Climbing, true);
                     _shoot.shoot = false;
                 }
-                else if (!groundcheck)
+                else if (!isGrounded)
                 {
                     anim.SetBool(Walking, false);
                     anim.SetBool(Climbing, false);
@@ -102,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
             
         }
-        if (!OnLadder && !groundcheck)
+        if (!OnLadder && !isGrounded)
         {
             timer += Time.deltaTime;
             _rigidbody2D.velocity = new Vector2(inputX*movespeed,Vector2.down.y * movespeed)* timer;
@@ -123,23 +142,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Ladder"))
         {
             OnLadder = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground")&& !OnLadder)
-        {
-            groundcheck = true;
-            timer = 0.5f;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground")||other.gameObject.CompareTag("Enemy"))
-        {
-            groundcheck = false; 
         }
     }
 }

@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
+    private BoxCollider2D coll;
     [SerializeField] GameObject player;
     [SerializeField] private bool groundcheck;
     [SerializeField] private Sprite _BurgerDead;
@@ -20,7 +21,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]private int XpAmount;
     private Animator _animator;
     private PlayerStats _stats;
-    private float timer;
+    public float timer;
     public bool moveRight;
 
     public float enemySpeed ;
@@ -28,18 +29,22 @@ public class Enemy : MonoBehaviour
 
     public delegate void EnemyXP(int XP);
     public static event EnemyXP killed;
+    public static event Action HighscoreUpEnemy;
 
     public delegate void DeathPos(Transform position);
 
     public static event DeathPos positionbroadcast;
+    [SerializeField] private Transform groundchecktrans;
+    [SerializeField] private LayerMask groudlayer;
+
+    private bool isGrounded;
     
-    void Start()
+    private void Awake()
     {
-        
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-
+        coll = GetComponent<BoxCollider2D>();
     }
 
     private void OnEnable()
@@ -65,8 +70,27 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    private void FixedUpdate()
+    {
+        timer += Time.deltaTime;
+        if (timer > 30)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void GroundCheck()
+    {
+        Bounds bounds = coll.bounds;
+        Vector2 size = new Vector2(bounds.extents.x + bounds.extents.x / 2, 0.05f);
+        Vector2 origin = new Vector2(bounds.center.x, bounds.center.y - bounds.extents.y);
+        isGrounded = Physics2D.OverlapCapsule(origin, size, CapsuleDirection2D.Horizontal, 0f, groudlayer);
+    }
+    
     void Update()
     {
+        GroundCheck();
         if (transform.position.x - player.transform.position.x <= 0.1 &&
             transform.position.x - player.transform.position.x >= -0.1)
         {
@@ -79,19 +103,18 @@ public class Enemy : MonoBehaviour
         _slide.value = slidevalue;
         if (currenthealth <= 0)
         {
+            HighscoreUpEnemy?.Invoke();
             killed?.Invoke(XpAmount);
             positionbroadcast?.Invoke(transform);
             Destroy(gameObject);
         }
-        if (groundcheck)
+        if (isGrounded)
         {
             Seek(player.transform.position);
 
         }
         else
         {
-            _rigidbody2D.velocity = Vector2.zero;
-            _rigidbody2D.velocity = Vector2.down*5;
             moveRight = false;
         }
         
@@ -109,32 +132,7 @@ public class Enemy : MonoBehaviour
         }
         
     }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground")||other.gameObject.CompareTag("Enemy"))
-        {
-            groundcheck = true;
-        }
-        
-    }
-
-    private void OnCollisionStay(Collision other)
-    {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy"))
-        {
-            groundcheck = true;
-        }
-        
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            groundcheck = false;
-        }
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {

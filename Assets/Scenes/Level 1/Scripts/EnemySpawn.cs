@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject Burger;
+    [SerializeField] private GameObject Wurst;
     float timer = 0;
     public Transform Target;
  
@@ -41,7 +43,17 @@ public class EnemySpawn : MonoBehaviour
     {
         if (other.gameObject.CompareTag("SpawnArea")&& !spawned)
         {
-            Instantiate(Burger, transform.position, Quaternion.identity);
+            int random = Random.Range(0, 3);
+            switch (random)
+            {
+                case 1:
+                    Instantiate(Burger, transform.position, Quaternion.identity);
+                    break;
+                case 2:
+                    Instantiate(Wurst, transform.position, Quaternion.identity);
+                    break;
+            }
+            
             spawned = true;
         }
         

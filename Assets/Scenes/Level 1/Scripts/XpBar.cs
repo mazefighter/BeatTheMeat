@@ -10,6 +10,7 @@ public class XpBar : MonoBehaviour
     [SerializeField]private float XPValue;
     private float currXp;
     public event Action levelUp;
+    [SerializeField] private Shoot _shoot;
     void Start()
     {
         
@@ -17,6 +18,7 @@ public class XpBar : MonoBehaviour
 
     private void OnEnable()
     {
+        
         currXp = 0;
         Enemy.killed += EnemyOnkilled;
         _slider = GetComponent<Slider>();
@@ -39,6 +41,7 @@ public class XpBar : MonoBehaviour
         if (currXp >= XPValue)
         {
             levelUp?.Invoke();
+            _shoot.shootAmount -= 0.01f;
             float XpDiff = currXp - XPValue;
             currXp = 0;
             currXp += XpDiff;
