@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f665cf7ecef0d8478910177751203c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 1
   player: {fileID: 0}
   groundcheck: 0
   _BurgerDead: {fileID: 0}
@@ -214,6 +215,7 @@ MonoBehaviour:
   XpAmount: 5
   timer: 0
   moveRight: 0
+  Score: 15
   enemySpeed: 3
   groundchecktrans: {fileID: 6666204867035165177}
   groudlayer:

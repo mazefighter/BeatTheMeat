@@ -26,9 +26,9 @@ public class Highscore : MonoBehaviour
         CageDespawn.HighscoreUpCage -= CageDespawnOnHighscoreUpCage;
     }
 
-    private void EnemyOnHighscoreUpEnemy()
+    private void EnemyOnHighscoreUpEnemy(int score)
     {
-        highscore += 20;
+        highscore += score;
     }
 
     void Start()

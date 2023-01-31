@@ -123,8 +123,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (!OnLadder && !isGrounded)
         {
-            timer += Time.deltaTime;
-            _rigidbody2D.velocity = new Vector2(inputX*movespeed,Vector2.down.y * movespeed)* timer;
+            _rigidbody2D.velocity = new Vector2(inputX*movespeed,Vector2.down.y * movespeed);
         }
     }
 

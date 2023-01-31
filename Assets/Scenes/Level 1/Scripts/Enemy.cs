@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int EnemyType;
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D coll;
     [SerializeField] GameObject player;
@@ -23,15 +24,17 @@ public class Enemy : MonoBehaviour
     private PlayerStats _stats;
     public float timer;
     public bool moveRight;
+    [SerializeField] private int Score;
 
     public float enemySpeed ;
     //private CameraShake _shake;
 
     public delegate void EnemyXP(int XP);
     public static event EnemyXP killed;
-    public static event Action HighscoreUpEnemy;
+    public delegate void HighscoreCount(int score);
+    public static event HighscoreCount HighscoreUpEnemy;
 
-    public delegate void DeathPos(Transform position);
+    public delegate void DeathPos(Transform position, int Type);
 
     public static event DeathPos positionbroadcast;
     [SerializeField] private Transform groundchecktrans;
@@ -103,9 +106,9 @@ public class Enemy : MonoBehaviour
         _slide.value = slidevalue;
         if (currenthealth <= 0)
         {
-            HighscoreUpEnemy?.Invoke();
+            HighscoreUpEnemy?.Invoke(Score);
             killed?.Invoke(XpAmount);
-            positionbroadcast?.Invoke(transform);
+            positionbroadcast?.Invoke(transform,EnemyType);
             Destroy(gameObject);
         }
         if (isGrounded)

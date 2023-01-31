@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class DeadEnemy : MonoBehaviour
 {
-    [SerializeField] private GameObject SpriteObj;
+    [SerializeField] private List<GameObject> SpriteObj;
     private SpriteRenderer _renderer;
-    [SerializeField] private Sprite DeadBurger;
-    [SerializeField]private Animator _animator;
+    [SerializeField] private List<Sprite> DeadBurger;
     private void OnEnable()
     {
         Enemy.positionbroadcast += EnemyOnpositionbroadcast;
-        _renderer = SpriteObj.GetComponent<SpriteRenderer>();
+        
     }
 
     private void OnDisable()
@@ -20,10 +19,20 @@ public class DeadEnemy : MonoBehaviour
         Enemy.positionbroadcast -= EnemyOnpositionbroadcast;
     }
 
-    private void EnemyOnpositionbroadcast(Transform position)
+    private void EnemyOnpositionbroadcast(Transform position, int Type)
     {
-        Instantiate(SpriteObj,position.position,Quaternion.identity);
-        _renderer.sprite = DeadBurger;
+        if (Type == 1)
+        {
+            _renderer = SpriteObj[0].GetComponent<SpriteRenderer>();
+            Instantiate(SpriteObj[0],position.position,Quaternion.identity);
+            _renderer.sprite = DeadBurger[0]; 
+        }
+        if (Type == 2)
+        {
+            _renderer = SpriteObj[1].GetComponent<SpriteRenderer>();
+            Instantiate(SpriteObj[1],position.position,Quaternion.identity);
+            _renderer.sprite = DeadBurger[1];
+        }
     }
 
     void Start()

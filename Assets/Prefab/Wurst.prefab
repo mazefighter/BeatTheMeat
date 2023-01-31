@@ -145,7 +145,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0032428503, y: -0.0016212314}
+  m_Offset: {x: -0.014525469, y: 0.010313123}
   m_SpriteTilingProperty:
     border: {x: 0.08400001, y: 0.044000003, z: 0.120000005, w: 0.052}
     pivot: {x: 0.5, y: 0.5}
@@ -156,7 +156,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.63788855, y: 0.71245956}
+  m_Size: {x: 0.23928577, y: 0.8795393}
   m_EdgeRadius: 0
 --- !u!1 &3309954208355815367
 GameObject:
@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f665cf7ecef0d8478910177751203c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 2
   player: {fileID: 0}
   groundcheck: 0
   _BurgerDead: {fileID: 0}
@@ -532,6 +533,7 @@ MonoBehaviour:
   XpAmount: 10
   timer: 0
   moveRight: 0
+  Score: 30
   enemySpeed: 2
   groundchecktrans: {fileID: 2841459332179652738}
   groudlayer:
@@ -571,7 +573,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0051711947, y: -0.0016759336}
+  m_Offset: {x: -0.042453498, y: 0.010484755}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -582,7 +584,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6378033, y: 0.7096799}
+  m_Size: {x: 0.2056821, y: 0.8772123}
   m_EdgeRadius: 0
 --- !u!95 &4419858223654141166
 Animator:
@@ -594,7 +596,7 @@ Animator:
   m_GameObject: {fileID: 6458639312049693223}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5e4d275af41b6e64f8f5656afb270bd7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
