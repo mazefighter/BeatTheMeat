@@ -7,8 +7,8 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     private TextMeshProUGUI _text;
-    public float timer = 0;
-    public int Minute = 3;
+    public float timer = 30;
+    public int Minute = 1;
     private string displayedtimer;
     public static event Action TimeLose;
     private bool timerstop;

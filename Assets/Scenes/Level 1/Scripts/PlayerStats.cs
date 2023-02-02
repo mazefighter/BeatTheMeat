@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -13,6 +15,13 @@ public class PlayerStats : MonoBehaviour
     private float deathTimer;
     [SerializeField] private Shoot _shoot;
     private bool timelose;
+    [SerializeField] private Image _image;
+    [SerializeField] private Sprite _timesUp;
+    [SerializeField] private Sprite _youDied;
+    [SerializeField] private GameObject endScreen;
+    [SerializeField] private AudioSource _loseSound;
+    [SerializeField] private AudioSource _backgroundSound;
+
     public event Action Stop;
 
     private void OnEnable()
@@ -40,15 +49,41 @@ public class PlayerStats : MonoBehaviour
     {
         timer += Time.deltaTime;
         
-        if (currenthealth <= 0|| timelose)
+        if (currenthealth <= 0)
         {
             _animator.SetBool("Death",true);
             _shoot.shoot = false;
             Stop?.Invoke();
             deathTimer += Time.deltaTime;
-            if (deathTimer > 2.5f)
+            if (deathTimer > 3)
             {
-                Time.timeScale = 0;
+                _backgroundSound.Stop();
+                _loseSound.enabled = true;
+                _image.sprite = _youDied;
+                endScreen.SetActive(true);
+                if (Input.anyKey)
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+            }
+            
+        }
+        if (timelose)
+        {
+            _animator.SetBool("Death",true);
+            _shoot.shoot = false;
+            Stop?.Invoke();
+            deathTimer += Time.deltaTime;
+            if (deathTimer > 3)
+            {
+                _image.sprite = _timesUp;
+                endScreen.SetActive(true);
+                _backgroundSound.Stop();
+                _loseSound.enabled = true;
+                if (Input.anyKey)
+                {
+                    SceneManager.LoadScene("Menu");
+                }
             }
             
         }
